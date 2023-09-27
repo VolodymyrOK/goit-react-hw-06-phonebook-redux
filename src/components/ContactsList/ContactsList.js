@@ -10,7 +10,7 @@ import {
   Title,
 } from './ContactsList.styled';
 
-export const ContactsList = ({ onDelContact, onFilterElement }) => {
+export const ContactsList = ({ onDelContact, onChangeFilter }) => {
   const visibleContacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
 
@@ -22,7 +22,7 @@ export const ContactsList = ({ onDelContact, onFilterElement }) => {
     <>
       <HeadContacts>
         <Title>Contacts</Title>
-        <Filter onFilterElement={onFilterElement} />
+        <Filter onChangeFilter={onChangeFilter} />
       </HeadContacts>
       <ContactList>
         {contacts.length === 0 ? (
@@ -46,14 +46,6 @@ export const ContactsList = ({ onDelContact, onFilterElement }) => {
 };
 
 ContactsList.propTypes = {
-  onFilterElement: PropTypes.func,
-  filter: PropTypes.string,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ),
+  onChangeFilter: PropTypes.func,
   onDelContact: PropTypes.func,
 };

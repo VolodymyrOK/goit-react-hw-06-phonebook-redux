@@ -18,15 +18,15 @@ export const App = () => {
 
   const delOldContact = idContact => dispatch(delContact(idContact));
 
-  const onFilterElement = newFilter => dispatch(changeFilter(newFilter));
+  const onChangeFilter = newFilter => dispatch(changeFilter(newFilter));
 
   return (
     <Layout>
-      <ContactsEntry onAdd={addNewContact} />
+      <ContactsEntry onAddContact={addNewContact} />
 
       <ContactsList
         onDelContact={delOldContact}
-        onFilterElement={onFilterElement}
+        onChangeFilter={onChangeFilter}
       />
       <GlobalStyle />
     </Layout>

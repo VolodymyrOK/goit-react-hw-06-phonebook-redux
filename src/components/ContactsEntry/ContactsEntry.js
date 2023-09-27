@@ -26,7 +26,7 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
-export const ContactsEntry = ({ onAdd }) => {
+export const ContactsEntry = ({ onAddContact }) => {
   return (
     <>
       <Title>Phonebook</Title>
@@ -37,7 +37,7 @@ export const ContactsEntry = ({ onAdd }) => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, reset) => {
-          onAdd(values);
+          onAddContact(values);
           reset.resetForm();
         }}
       >
@@ -70,5 +70,5 @@ export const ContactsEntry = ({ onAdd }) => {
 };
 
 ContactsEntry.propTypes = {
-  onAdd: PropTypes.func,
+  onAddContact: PropTypes.func,
 };
