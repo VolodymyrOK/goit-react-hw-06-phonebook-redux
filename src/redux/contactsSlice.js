@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export const contactsReducer = (state = initialState, action) => {
-  console.log('contactReducer', action);
   switch (action.type) {
     case 'contacts/addContact':
       const isDuplicated = state.contacts.find(
