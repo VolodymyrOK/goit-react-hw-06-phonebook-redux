@@ -4,11 +4,13 @@ import { GlobalStyle } from 'styles/GlobalStyles';
 import { Layout } from 'styles/Layout';
 import { ContactsEntry } from './ContactsEntry/ContactsEntry';
 import { ContactsList } from './ContactsList/ContactsList';
-import { STORAGE_KEY, addContact, changeFilter, delContact } from 'redux/store';
+import { STORAGE_KEY } from 'data/StorageData';
+import { addContact, delContact } from 'redux/contactsSlice';
+import { changeFilter } from 'redux/filterSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.stateContacts.contacts);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));

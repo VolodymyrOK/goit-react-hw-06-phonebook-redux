@@ -1,17 +1,31 @@
-import { getListContacts } from './store';
+import { nanoid } from '@reduxjs/toolkit';
+import { getListContacts } from 'data/StorageData';
 
-export const contactsReducer = (
-  state = { contacts: getListContacts() },
-  action
-) => {
+const initialState = {
+  contacts: getListContacts(),
+};
+
+export const contactsReducer = (state = initialState, action) => {
+  console.log('contactReducer', action);
   switch (action.type) {
-    case 'contact/newContact':
-      console.log(state.contacts);
-      return;
-    case 'contact/delContact':
+    case 'contacts/addContact':
+      const isDuplicated = state.contacts.find(
+        item => item.name.toLowerCase() === action.payload.name.toLowerCase()
+      );
+      if (isDuplicated)
+        return alert(action.payload.name + ' is already in contacts');
       return {
         ...state,
+        contacts: [...state.contacts, { id: nanoid(4), ...action.payload }],
       };
+    case 'contacts/delContact': {
+      if (window.confirm('Are you sure?'))
+        return {
+          ...state,
+          contacts: state.contacts.filter(({ id }) => id !== action.payload),
+        };
+      return;
+    }
     default:
       return state;
   }
@@ -19,14 +33,13 @@ export const contactsReducer = (
 
 export const addContact = newContact => {
   return {
-    type: 'contact/newContact',
+    type: 'contacts/addContact',
     payload: newContact,
   };
 };
-
-export const delContact = id => {
+export const delContact = idContact => {
   return {
-    type: 'contact/delContact',
-    payload: id,
+    type: 'contacts/delContact',
+    payload: idContact,
   };
 };

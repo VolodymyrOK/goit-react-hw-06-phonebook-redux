@@ -11,8 +11,8 @@ import {
 } from './ContactsList.styled';
 
 export const ContactsList = ({ onDelContact, onChangeFilter }) => {
-  const visibleContacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const visibleContacts = useSelector(state => state.stateContacts.contacts);
+  const filter = useSelector(state => state.stateFilter.filter);
 
   const contacts = visibleContacts.filter(item =>
     item.name.toLowerCase().includes(filter.toLowerCase())
