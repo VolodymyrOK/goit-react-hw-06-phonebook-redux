@@ -1,13 +1,15 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { getListContacts } from 'data/StorageData';
 
-export const contactsReducer = (state = getListContacts(), action) => {
+const initialState = getListContacts();
+
+export const contactsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'contacts/addContact':
       return [...state, action.payload];
 
     case 'contacts/delContact':
-      return action.payload;
+      return state.filter(item => item.id !== action.payload);
 
     default:
       return state;
@@ -25,10 +27,10 @@ export const addContact = (name, number) => {
   };
 };
 
-export const delContact = newArrContact => {
+export const delContact = idContact => {
   return {
     type: 'contacts/delContact',
-    payload: newArrContact,
+    payload: idContact,
   };
 };
 

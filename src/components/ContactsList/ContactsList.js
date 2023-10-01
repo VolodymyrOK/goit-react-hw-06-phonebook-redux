@@ -36,10 +36,7 @@ export const ContactsList = ({ onDelContact, onChangeFilter }) => {
                 <DelButton
                   type="button"
                   onClick={() => {
-                    if (window.confirm('Are you sure?'))
-                      onDelContact(
-                        visibleContacts.filter(item => item.id !== id)
-                      );
+                    if (window.confirm('Are you sure?')) onDelContact(id);
                   }}
                 >
                   Delete
