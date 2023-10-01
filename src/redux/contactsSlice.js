@@ -7,7 +7,7 @@ export const contactsReducer = (state = getListContacts(), action) => {
       return [...state, action.payload];
 
     case 'contacts/delContact':
-      return state.filter(({ id }) => id !== action.payload);
+      return action.payload;
 
     default:
       return state;
@@ -25,10 +25,10 @@ export const addContact = (name, number) => {
   };
 };
 
-export const delContact = idContact => {
+export const delContact = newArrContact => {
   return {
     type: 'contacts/delContact',
-    payload: idContact,
+    payload: newArrContact,
   };
 };
 
