@@ -4,8 +4,8 @@ import { filterReducer } from './filterSlice';
 import { contactsReducer } from './contactsSlice';
 
 const rootReducer = combineReducers({
-  stateContacts: contactsReducer,
-  stateFilter: filterReducer,
+  contacts: contactsReducer,
+  filter: filterReducer,
 });
 
 const enhancer = devToolsEnhancer();

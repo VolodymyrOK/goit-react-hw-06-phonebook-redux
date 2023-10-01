@@ -10,13 +10,13 @@ import { changeFilter } from 'redux/filterSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.stateContacts.contacts);
+  const contacts = useSelector(state => state.contacts);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
-  const addNewContact = newContact => dispatch(addContact(newContact));
+  const addNewContact = (name, number) => dispatch(addContact(name, number));
 
   const delOldContact = idContact => dispatch(delContact(idContact));
 

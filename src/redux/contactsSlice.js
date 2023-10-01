@@ -1,41 +1,30 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { getListContacts } from 'data/StorageData';
 
-const initialState = {
-  contacts: getListContacts(),
-};
-
-export const contactsReducer = (state = initialState, action) => {
+export const contactsReducer = (state = getListContacts(), action) => {
   switch (action.type) {
     case 'contacts/addContact':
-      const isDuplicated = state.contacts.find(
-        item => item.name.toLowerCase() === action.payload.name.toLowerCase()
-      );
-      if (isDuplicated)
-        return alert(action.payload.name + ' is already in contacts');
-      return {
-        ...state,
-        contacts: [...state.contacts, { id: nanoid(4), ...action.payload }],
-      };
-    case 'contacts/delContact': {
-      if (window.confirm('Are you sure?'))
-        return {
-          ...state,
-          contacts: state.contacts.filter(({ id }) => id !== action.payload),
-        };
-      return;
-    }
+      return [...state, action.payload];
+
+    case 'contacts/delContact':
+      return state.filter(({ id }) => id !== action.payload);
+
     default:
       return state;
   }
 };
 
-export const addContact = newContact => {
+export const addContact = (name, number) => {
   return {
     type: 'contacts/addContact',
-    payload: newContact,
+    payload: {
+      id: nanoid(4),
+      name,
+      number,
+    },
   };
 };
+
 export const delContact = idContact => {
   return {
     type: 'contacts/delContact',

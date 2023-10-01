@@ -1,14 +1,7 @@
-const initialState = {
-  filter: '',
-};
-
-export const filterReducer = (state = initialState, action) => {
+export const filterReducer = (state = '', action) => {
   switch (action.type) {
     case 'filter': {
-      return {
-        ...state,
-        filter: action.payload,
-      };
+      return action.payload;
     }
     default:
       return state;

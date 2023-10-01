@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -27,6 +28,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const ContactsEntry = ({ onAddContact }) => {
+  const contacts = useSelector(state => state.contacts);
   return (
     <>
       <Title>Phonebook</Title>
@@ -36,8 +38,12 @@ export const ContactsEntry = ({ onAddContact }) => {
           number: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values, reset) => {
-          onAddContact(values);
+        onSubmit={({ name, number }, reset) => {
+          const isDuplicated = contacts.find(
+            item => item.name.toLowerCase() === name.toLowerCase()
+          );
+          if (isDuplicated) return alert(name + ' is already in contacts');
+          onAddContact(name, number);
           reset.resetForm();
         }}
       >

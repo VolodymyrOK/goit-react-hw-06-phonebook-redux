@@ -11,8 +11,8 @@ import {
 } from './ContactsList.styled';
 
 export const ContactsList = ({ onDelContact, onChangeFilter }) => {
-  const visibleContacts = useSelector(state => state.stateContacts.contacts);
-  const filter = useSelector(state => state.stateFilter.filter);
+  const visibleContacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
 
   const contacts = visibleContacts.filter(item =>
     item.name.toLowerCase().includes(filter.toLowerCase())
@@ -33,7 +33,12 @@ export const ContactsList = ({ onDelContact, onChangeFilter }) => {
               <span>{name}:</span>
               <span>{number}</span>
               <span>
-                <DelButton type="button" onClick={() => onDelContact(id)}>
+                <DelButton
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm('Are you sure?')) onDelContact(id);
+                  }}
+                >
                   Delete
                 </DelButton>
               </span>
